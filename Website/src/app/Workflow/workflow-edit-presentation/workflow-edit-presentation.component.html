@@ -1,0 +1,111 @@
+<div class="row mb-3 align-items-center justify-content-between">
+  <div class="col-md-auto col-sm-auto">
+    <div class="section-title">
+      <h2>{{ "ADD_WORKFLOW" | translate }}</h2>
+    </div>
+  </div>
+</div>
+<form autocomplete="off" [formGroup]="workflowForm">
+  <div class="row">
+    <div class="col-md-4">
+      <div class="form-group">
+        <label>{{ "DOCUMENT" | translate }}</label>
+        <mat-select class="form-control" formControlName="documentId">
+          <mat-option>-- {{ "NONE" | translate }} --</mat-option>
+          <mat-option
+            *ngFor="let document of documentInfos"
+            [value]="document.id"
+          >
+            <div>
+              {{ document.name }}
+            </div>
+          </mat-option>
+        </mat-select>
+        <div
+          *ngIf="
+            workflowForm.get('documentId').touched &&
+            workflowForm.get('documentId').errors
+          "
+        >
+          <div
+            class="text-danger"
+            *ngIf="workflowForm.get('documentId').errors?.required"
+          >
+            {{ "DOCUMENT_IS_REQUIRED" | translate }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12" formArrayName="workFlowParticipant">
+
+      <div class="row">
+        <div class="col">
+          <div class="table-responsive">
+            <table class="table table-bordered table-hover table-sm">
+              <tr>
+
+                <th class="table-column-200">
+                  {{ "USER" | translate }}
+                </th>
+                <th class="table-column-200">
+                  {{ "ORDER_NUMBER" | translate }}
+                </th>
+                <th class="table-column-50"> <button
+                  type="button"
+                  class="btn blue-btn btn-sm m-right-10"
+                  (click)="onAddUserParticipant()"
+                >
+                  <i class="fas fa-plus"></i> {{ "ADD_USER_PARTICIPANT" | translate }}
+                </button></th>
+              </tr>
+              <tr
+                [formGroupName]="i"
+                *ngFor="
+                  let purchaseOrderItem of workflowParticipantArray?.controls;
+                  let i = index
+                "
+              >
+
+                <td>
+                  <mat-select class="form-control" formControlName="userId">
+                    <mat-option>-- {{ "NONE" | translate }} --</mat-option>
+                    <mat-option *ngFor="let user of users" [value]="user.id">
+                      <div>
+                        {{ user.firstName }}
+                      </div>
+                    </mat-option>
+                  </mat-select>
+                </td>
+                <td>
+                  <input class="form-control" type="number" formControlName="orderNumber"
+                    placeholder="{{'ORDER_NUMBER' | translate}}">
+                </td>
+                <td>
+                  <button
+                    type="button"
+                    *ngIf="workflowUserParticipantArray?.controls.length !== 1"
+                    (click)="onRAddUserParticipant(i)"
+                    mat-icon-button
+                    aria-label="Action"
+                  >
+                    <mat-icon class="btn-danger">delete_forever</mat-icon>
+                  </button>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 mb-1">
+      <button type="button" (click)="onWorkflowSubmit()" class="btn btn-success btn-sm m-right-10">
+        <i class="fas fa-save"></i>
+        {{'SAVE' | translate}}</button>
+    </div>
+  </div>
+</form>

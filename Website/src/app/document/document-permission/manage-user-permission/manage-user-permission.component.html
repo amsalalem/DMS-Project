@@ -1,0 +1,69 @@
+<h1 mat-dialog-title>{{'USER_PERMISSION' | translate}}</h1>
+<div mat-dialog-content [formGroup]="permissionForm">
+    <div class="row">
+        <div class="form-group col-md-12">
+            <mat-label>{{'USERS' | translate}}</mat-label>
+            <mat-select [(value)]="selectedUsers" multiple class="form-control">
+                <mat-select-trigger>
+                    <span *ngIf="selectedUsers.length > 0">
+                        {{selectedUsers[0].firstName}} {{selectedUsers[0].lastName}}
+                        ({{selectedUsers[0].userName}})
+                    </span>
+                    <span *ngIf="selectedUsers.length > 1" class="example-additional-selection">
+                        (+{{selectedUsers.length - 1}} {{selectedUsers.length === 2 ? 'other' : 'others'}})
+                    </span>
+                </mat-select-trigger>
+                <mat-option *ngFor="let user of data.users" [value]="user">
+                    {{user.firstName}} {{user.lastName}} ({{user.userName}})
+                </mat-option>
+            </mat-select>
+        </div>
+    </div>
+    <div class="col-md-12 row">
+        <mat-checkbox (change)="timeBoundChange($event)" color="primary" formControlName="isTimeBound">
+            {{'SPACIFY_THE_PERIOD' | translate}}</mat-checkbox>
+    </div>
+    <div class="col-md-12 row" *ngIf="permissionForm.get('isTimeBound').value">
+        <div class="form-group col-md-6">
+            <mat-label>{{'CHOOSE_A_START_DATE' | translate}}</mat-label>
+            <div class="input-group">
+                <input formControlName="startDate" class="form-control" [min]="minDate"
+                    [matDatepicker]="startDatePicker">
+                <div class="input-group-append">
+                    <button class="btn btn-primary calender-button" type="button" (click)="startDatePicker.open()"><i
+                            class="las la-calendar-alt"></i></button>
+                </div>
+                <mat-datepicker #startDatePicker></mat-datepicker>
+            </div>
+            <mat-error
+                *ngIf="permissionForm.get('startDate').touched && permissionForm.get('startDate').errors?.required">
+                {{'START_DATE_IS_REQURED' | translate}}
+            </mat-error>
+        </div>
+        <div class="form-group col-md-6">
+            <mat-label>{{'CHOOSE_A_END_DATE' | translate}}</mat-label>
+            <div class="input-group">
+                <input formControlName="endDate" class="form-control" [min]="permissionForm.get('startDate').value"
+                    [matDatepicker]="endDatePicker">
+                <div class="input-group-append">
+                    <button class="btn btn-primary calender-button" type="button" (click)="endDatePicker.open()"><i
+                            class="las la-calendar-alt"></i></button>
+                </div>
+                <mat-datepicker #endDatePicker></mat-datepicker>
+            </div>
+            <mat-error
+                *ngIf="permissionForm.get('startDate').touched && permissionForm.get('endDate').errors?.required">
+                {{'END_DATE_IS_REQURED' | translate}}
+            </mat-error>
+        </div>
+    </div>
+    <div class="col-md-12 row">
+        <mat-checkbox color="primary" formControlName="isAllowDownload">{{'ALLOW_DOWNLOAD' | translate}}</mat-checkbox>
+    </div>
+</div>
+<div mat-dialog-actions>
+    <button class="btn btn-success btn-sm m-right-10" (click)="saveDocumentUserPermission()" cdkFocusInitial><i
+            class="las la-save"></i> {{'SAVE' | translate}}</button>
+    <button class="btn btn-danger btn-sm" (click)="onNoClick()"><i class="las la-times-circle"></i> {{'CANCEL' |
+        translate}}</button>
+</div>

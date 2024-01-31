@@ -1,0 +1,41 @@
+<div class="dialog-header">
+  <div class="folder-dialog-info">
+    <div class="section-title">
+      <h2>{{'WORKFLOW_PARTICIPANT' | translate}}</h2>
+    </div>
+  </div>
+  <div class="close-icon mt-1 ml-2 text-danger" (click)="closeDialog()">
+    <span class="material-icons cursor-pointer">
+      close
+    </span>
+  </div>
+</div>
+<div class="d-content">
+  <table mat-table [dataSource]="ParticipantDataSource" class="table table-bordered table-hover">
+    <ng-container matColumnDef="approver">
+        <th mat-header-cell *matHeaderCellDef>{{"APPROVER" | translate}}</th>
+        <td mat-cell *matCellDef="let element">
+            {{element.aproverName}}
+        </td>
+    </ng-container>
+    <ng-container matColumnDef="orderNumber">
+      <th mat-header-cell *matHeaderCellDef>{{"ORDER_NUMBER" | translate}}</th>
+      <td mat-cell *matCellDef="let element">
+       {{element.orderNumber}}
+      </td>
+  </ng-container>
+    <ng-container matColumnDef="approvalStatus">
+        <th mat-header-cell *matHeaderCellDef> {{"APPROVAL_STATUS" | translate}} </th>
+        <td mat-cell *matCellDef="let element">
+            {{ getApprovalStatusText(element.approvalStatus) }}
+        </td>
+
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+<mat-paginator #workFlowParticipantPaginator [pageSizeOptions]="[10, 20,50,100]"></mat-paginator>
+</div>
+
+
+

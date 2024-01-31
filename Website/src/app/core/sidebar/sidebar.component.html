@@ -1,0 +1,116 @@
+<div class="left-sidenav">
+  <div class="main-menu-inner">
+    <div class="menu-body">
+      <ul class="nav mainmenu">
+        <li *hasClaim="'dashboard_view_dashboard'" class="nav-item" [routerLink]="['/dashboard']"
+          [routerLinkActive]="['active','shadow']" routerLinkActive="router-link-active"
+          [routerLinkActiveOptions]="{exact:true}">
+          <div class="nav-item-hold">
+            <i class="nav-icon las la-tachometer-alt"></i>{{'DASHBOARD' | translate}}
+          </div>
+        </li>
+        <li class="nav-item" [routerLink]="['/']" [routerLinkActive]="['active','shadow']"
+          routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}">
+          <div class="nav-item-hold">
+            <i class="nav-icon las la-list"></i>{{'ASSIGNED_DOCUMENTS' | translate}}
+          </div>
+        </li>
+        <li *hasClaim="'all_documents_view_documents'" class="nav-item" [routerLink]="['/documents']"
+          [routerLinkActive]="['active']" routerLinkActive="router-link-active"
+          [routerLinkActiveOptions]="{exact:true}">
+          <div class="nav-item-hold">
+            <i class="nav-icon las la-file-pdf"></i>{{'ALL_DOCUMENTS' | translate}}
+          </div>
+        </li>
+        <li *hasClaim="'workflow_view_workflow'" class="nav-item" [routerLink]="['/workflow']"
+        [routerLinkActive]="['active']" routerLinkActive="router-link-active"
+        [routerLinkActiveOptions]="{exact:true}">
+        <div class="nav-item-hold">
+          <i class="nav-icon las la-sitemap"></i>{{'ALL_WORKFLOW' | translate}}
+        </div>
+      </li>
+      <li *hasClaim="'approval_file_request_view_approval_file_request'" class="nav-item" [routerLink]="['/approval-file-request']"
+      [routerLinkActive]="['active']" routerLinkActive="router-link-active"
+      [routerLinkActiveOptions]="{exact:true}">
+      <div class="nav-item-hold">
+        <i class="nav-icon las la-thumbs-up"></i>{{'FILE_APPROVAL_REQUEST' | translate}}
+      </div>
+    </li>
+    <li *hasClaim="'approval_file_request_view_my_approved_file'" class="nav-item" [routerLink]="['/my-Approved-file']"
+    [routerLinkActive]="['active']" routerLinkActive="router-link-active"
+    [routerLinkActiveOptions]="{exact:true}">
+    <div class="nav-item-hold">
+      <i class="nav-icon las la-check-circle"></i>{{'MY_APPROVED_FILE' | translate}}
+    </div>
+  </li>
+        <li *hasClaim="'document_category_view_categories'" class="nav-item" [routerLink]="['/categories']"
+          [routerLinkActive]="['active']" routerLinkActive="router-link-active"
+          [routerLinkActiveOptions]="{exact:true}">
+          <div class="nav-item-hold">
+            <i class="nav-icon las la-file-code"></i>{{'DOCUMENT_CATEGORIES' | translate}}
+          </div>
+        </li>
+        <li *hasClaim="'document_audit_trail_view_document_audit_trail'" class="nav-item"
+          [routerLink]="['/document-audit-trails']" [routerLinkActive]="['active','shadow']"
+          routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}">
+          <div class="nav-item-hold">
+            <i class="nav-icon las la-th-list"></i>{{'DOCUMENTS_AUDIT_TRAIL' | translate}}
+          </div>
+        </li>
+        <li *hasClaim="'role_view_roles'" class="nav-item" [routerLink]="['/roles']"
+          [routerLinkActive]="['active','shadow']" routerLinkActive="router-link-active"
+          [routerLinkActiveOptions]="{exact:true}">
+          <div class="nav-item-hold">
+            <i class="nav-icon las la-tasks"></i>{{'ROLES' | translate}}
+          </div>
+        </li>
+        <li *hasClaim="'user_view_users'" class="nav-item" [routerLink]="['/users']"
+          [routerLinkActive]="['active','shadow']" routerLinkActive="router-link-active"
+          [routerLinkActiveOptions]="{exact:true}">
+          <div class="nav-item-hold">
+            <i class="nav-icon las la-user"></i>{{'USERS' | translate}}
+          </div>
+        </li>
+        <li *hasClaim="'user_assign_user_role'" class="nav-item" [routerLink]="['/roles/users']"
+          [routerLinkActive]="['active','shadow']" routerLinkActive="router-link-active"
+          [routerLinkActiveOptions]="{exact:true}">
+          <div class="nav-item-hold">
+            <i class="nav-icon las la-id-badge"></i>{{'ROLE_USER' | translate}}
+          </div>
+        </li>
+        <!-- <li class="nav-item" *hasClaim="'reminder_view_reminders'" [routerLink]="['/reminders']"
+          [routerLinkActive]="['active','shadow']" routerLinkActive="router-link-active"
+          [routerLinkActiveOptions]="{exact:true}">
+          <div class="nav-item-hold">
+            <i class="nav-icon las la-bell"></i>
+            {{'REMINDER' | translate}}
+          </div>
+        </li> -->
+        <li *hasClaim="'login_audit_view_login_audit_logs'" class="nav-item" [routerLink]="['/login-audit']"
+          [routerLinkActive]="['active','shadow']" routerLinkActive="router-link-active"
+          [routerLinkActiveOptions]="{exact:true}">
+          <div class="nav-item-hold">
+            <i class="nav-icon las la-th-list"></i>
+            {{'LOGIN_AUDITS' | translate}}
+          </div>
+        </li>
+        <li [ngClass]="onActiveUrl()" class="nav-item" *hasClaim="['email_view_smtp_settings']"
+          routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}">
+          <input type="checkbox" id="products">
+          <label for="products">
+            <i class="nav-icon las la-cog"></i>
+            {{'SETTINGS' | translate}} &nbsp;&nbsp;
+            <i class="la la-angle-down"></i></label>
+          <ul class="submenu">
+
+            <li *hasClaim="'email_view_smtp_settings'" [routerLink]="['/email-smtp']"
+              [routerLinkActive]="['active','shadow']" routerLinkActive="router-link-active"
+              [routerLinkActiveOptions]="{exact:true}">
+              <label>{{'EMAIL_SMTP_SETTINGS' | translate}}</label>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

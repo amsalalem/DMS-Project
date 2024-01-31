@@ -1,0 +1,90 @@
+<div class="dialog-header">
+  <div class="folder-dialog-info">
+    <div class="section-title">
+      <h2>{{'SHARE_DOCUMENTS' | translate}}</h2>
+    </div>
+  </div>
+  <div class="close-icon mt-1 ml-2 text-danger" (click)="closeDialog()">
+    <span class="material-icons cursor-pointer">
+      close
+    </span>
+  </div>
+</div>
+<div class="d-content">
+  <div class="row">
+    <div class="col-sm-12">
+      <h3> {{'SELECTED_DOCUMENTS' | translate}}</h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <mat-chip-list>
+        <mat-chip *ngFor="let document of documents" color="primary">{{document.name}}</mat-chip>
+      </mat-chip-list>
+    </div>
+  </div>
+  <div class="row mt-2" [formGroup]="permissionForm">
+    <div class="col-md-6">
+      <mat-label>{{'USERS' | translate}}</mat-label>
+      <mat-select class="form-control" formControlName="users" multiple>
+        <mat-option *ngFor="let user of users" [value]="user.id">
+          {{user.firstName}} {{user.lastName}} ({{user.userName}})
+        </mat-option>
+      </mat-select>
+    </div>
+    <div class="col-md-6">
+      <mat-label>{{'ROLES' | translate}}</mat-label>
+      <mat-select class="form-control" formControlName="roles" multiple>
+        <mat-option *ngFor="let role of roles" [value]="role.id">
+          {{role.name}}
+        </mat-option>
+      </mat-select>
+    </div>
+    <div class="col-md-12 mt-1">
+      <mat-checkbox (change)="timeBoundChange($event)" color="primary" formControlName="isTimeBound">
+        {{'SPACIFY_THE_PERIOD' | translate}}
+      </mat-checkbox>
+    </div>
+    <div class="col-md-12 row" *ngIf="permissionForm.get('isTimeBound').value">
+      <div class="form-group col-md-3">
+        <mat-label>{{'CHOOSE_A_START_DATE' | translate}}</mat-label>
+        <div class="input-group">
+          <input formControlName="startDate" class="form-control" [min]="minDate" [matDatepicker]="startDatePicker">
+          <div class="input-group-append">
+            <button class="btn btn-primary calender-button" type="button" (click)="startDatePicker.open()"><i
+                class="las la-calendar-alt"></i></button>
+          </div>
+          <mat-datepicker #startDatePicker></mat-datepicker>
+        </div>
+        <mat-error *ngIf="permissionForm.get('startDate').touched && permissionForm.get('startDate').errors?.required">
+          {{'START_DATE_IS_REQURED' | translate}}
+        </mat-error>
+      </div>
+      <div class="form-group col-md-3">
+        <mat-label>{{'CHOOSE_A_END_DATE' | translate}}</mat-label>
+        <div class="input-group">
+          <input formControlName="endDate" class="form-control" [min]="permissionForm.get('startDate').value"
+            [matDatepicker]="endDatePicker">
+          <div class="input-group-append">
+            <button class="btn btn-primary calender-button" type="button" (click)="endDatePicker.open()"><i
+                class="las la-calendar-alt"></i></button>
+          </div>
+          <mat-datepicker #endDatePicker></mat-datepicker>
+        </div>
+        <mat-error *ngIf="permissionForm.get('startDate').touched && permissionForm.get('endDate').errors?.required">
+          {{'END_DATE_IS_REQURED' | translate}}
+        </mat-error>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <mat-checkbox color="primary" formControlName="isAllowDownload">{{'ALLOW_DOWNLOAD' | translate}}</mat-checkbox>
+    </div>
+    <div class="col-md-12">
+      <button class="btn btn-success btn-sm m-right-10" (click)="saveDocumentUserPermission()" cdkFocusInitial><i
+          class="las la-save"></i> {{'SAVE' | translate}}
+      </button>
+      <button class="btn btn-danger btn-sm" (click)="closeDialog()"><i class="las la-times-circle"></i> {{'CANCEL' |
+        translate}}</button>
+    </div>
+  </div>
+</div>
